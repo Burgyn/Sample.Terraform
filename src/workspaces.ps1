@@ -1,5 +1,5 @@
 param (
-    [string]$workspace = "DevLab"
+    [string]$workspace = "dev"
 )
 
 Write-Output "*********** Create or select workspace"

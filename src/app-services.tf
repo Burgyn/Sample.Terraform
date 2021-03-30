@@ -1,5 +1,5 @@
 resource "azurerm_app_service" "users" {
-  name                = "mino-eshop-users"
+  name                = "mino-${terraform.workspace}-eshop-users"
   location            = azurerm_resource_group.eshop.location
   resource_group_name = azurerm_resource_group.eshop.name
   app_service_plan_id = azurerm_app_service_plan.eshop.id

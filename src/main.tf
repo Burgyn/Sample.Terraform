@@ -3,6 +3,6 @@ provider "azurerm" {
 }
 
 resource "azurerm_resource_group" "eshop" {
-  name     = "mino-eshop-rsg"
+  name     = "mino-${terraform.workspace}-eshop-rsg"
   location = "West Europe"
 }
