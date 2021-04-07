@@ -25,7 +25,7 @@ module "eshop-app" {
       create_database     = true
       app_service_plan_id = ""
     },
-    "baset" = {
+    "basket" = {
       name                = "basket"
       create_database     = true
       app_service_plan_id = ""
