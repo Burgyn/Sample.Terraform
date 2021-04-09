@@ -1,6 +1,6 @@
 variable "application_name" {
   type        = string
-  description = "Application name. Example: esw-platform-base."
+  description = "Application name. Example: base-app."
 }
 
 variable "resource_group" {
