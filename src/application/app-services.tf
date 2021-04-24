@@ -26,7 +26,10 @@ resource "azurerm_app_service" "service" {
 output "services" {
   value = [
     for name, default_site_hostname in zipmap(values(var.services)[*]["name"], values(azurerm_app_service.service)[*]["default_site_hostname"]):
-    map("name", name, "host", "https://${default_site_hostname}")
+    tomap({
+      name = name
+      host = "https://${default_site_hostname}"
+    })
   ]
   description = "Services"
 }
