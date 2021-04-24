@@ -1,3 +1,8 @@
+variable "prefix" {
+  type = string
+  default = "gabo"
+}
+
 variable "application_name" {
   type        = string
   description = "Application name. Example: base-app."

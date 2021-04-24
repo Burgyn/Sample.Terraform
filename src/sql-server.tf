@@ -4,7 +4,7 @@ resource "random_password" "password" {
 }
 
 resource "azurerm_sql_server" "eshop" {
-  name                         = "mino-${lower(terraform.workspace)}-eshop-sql"
+  name                         = "${var.prefix}-${lower(terraform.workspace)}-eshop-sql"
   resource_group_name          = azurerm_resource_group.eshop.name
   location                     = azurerm_resource_group.eshop.location
   version                      = "12.0"
