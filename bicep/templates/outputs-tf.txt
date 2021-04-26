@@ -1,0 +1,32 @@
+base_services = [
+  tomap({
+    "host" = "https://gabo-dev-eshop-authorization-api.azurewebsites.net"
+    "name" = "authorization"
+  }),
+  tomap({
+    "host" = "https://gabo-dev-eshop-emails-api.azurewebsites.net"
+    "name" = "emails"
+  }),
+  tomap({
+    "host" = "https://gabo-dev-eshop-tenant-api.azurewebsites.net"
+    "name" = "tenant"
+  }),
+  tomap({
+    "host" = "https://gabo-dev-eshop-users-api.azurewebsites.net"
+    "name" = "users"
+  }),
+]
+eshop_services = [
+  tomap({
+    "host" = "https://gabo-dev-eshop-basket-api.azurewebsites.net"
+    "name" = "basket"
+  }),
+  tomap({
+    "host" = "https://gabo-dev-eshop-catalog-api.azurewebsites.net"
+    "name" = "catalog"
+  }),
+  tomap({
+    "host" = "https://gabo-dev-eshop-orders-api.azurewebsites.net"
+    "name" = "orders"
+  }),
+]
