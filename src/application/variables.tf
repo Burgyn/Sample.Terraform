@@ -40,3 +40,9 @@ variable "key_vault" {
     id  = string
   })
 }
+
+variable "app_depends_on" {
+  type        = any
+  default     = null
+  description = "A list of resources on which it is dependent."
+}

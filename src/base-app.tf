@@ -41,6 +41,10 @@ module "base-app" {
       app_service_plan_id = ""
     }
   }
+
+  app_depends_on = [
+    azurerm_key_vault_access_policy.groups
+  ]
 }
 
 ################################
