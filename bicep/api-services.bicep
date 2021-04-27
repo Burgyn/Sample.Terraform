@@ -6,18 +6,23 @@ param prefix string
 @maxLength(15)
 param deploymentEnvironment string
 
-@minLength(1)
-param location string = resourceGroup().location
-
-param appServicePlanId string
+param appServicePlanSku object
 
 param services array = []
 
+param location string = resourceGroup().location
+
+resource appServicePlan 'Microsoft.Web/serverfarms@2018-02-01' = {
+  name: '${prefix}-${deploymentEnvironment}-eshop-plan'
+  location: location
+  sku: appServicePlanSku
+}
+
 resource api 'Microsoft.Web/sites@2018-11-01' = [for service in services: {
-  name: '${prefix}-${deploymentEnvironment}-eshop-${service.name}-api'
+  name: '${prefix}-${deploymentEnvironment}-eshop-${service}-api'
   location: location
   properties: {
-    serverFarmId: contains(service, 'appServicePlanId') && !empty(service.appServicePlanId) ? service.appServicePlanId : appServicePlanId
+    serverFarmId: appServicePlan.id
     httpsOnly: true
     clientAffinityEnabled: false
     siteConfig: {
