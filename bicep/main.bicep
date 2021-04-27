@@ -19,10 +19,17 @@ param appServicePlanSku object = {
   size: 'S1'
 }
 
-param elasticPoolSku object = {
-  name: 'StandardPool'
-  tier: 'Standard'
-  capacity: 100
+param elasticPoolSettings object = {
+  sku: {
+    name: 'StandardPool'
+    tier: 'Standard'
+    capacity: 100
+  }
+  maxSizeBytes: 100 * 1024 * 1024 * 1024
+  perDatabaseSettings: {
+    minCapacity: 0
+    maxCapacity: 10
+  }
 }
 
 @minLength(2)
@@ -110,7 +117,7 @@ module databases './databases.bicep' = {
     location: location
     administratorLogin: sqlServerAdminName
     administratorLoginPassword: sqlServerAdminPassword
-    elasticPoolSku: elasticPoolSku
+    elasticPoolSettings: elasticPoolSettings
     databases: databaseNames
   }
 }

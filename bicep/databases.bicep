@@ -12,7 +12,7 @@ param administratorLogin string = 'superadmin'
 @minLength(12)
 param administratorLoginPassword string
 
-param elasticPoolSku object
+param elasticPoolSettings object
 
 param databases array = []
 
@@ -31,13 +31,10 @@ resource sqlServer 'Microsoft.Sql/servers@2020-08-01-preview' = {
 resource sqlPool 'Microsoft.Sql/servers/elasticPools@2020-08-01-preview' = {
   name: '${sqlServer.name}/${prefix}-elasticpool'
   location: location
-  sku: elasticPoolSku
+  sku: elasticPoolSettings.sku
   properties: {
-    maxSizeBytes: 100 * 1024 * 1024 * 1024
-    perDatabaseSettings: {
-      minCapacity: 0
-      maxCapacity: 10
-    }
+    maxSizeBytes: elasticPoolSettings.maxSizeBytes
+    perDatabaseSettings: elasticPoolSettings.perDatabaseSettings
     zoneRedundant: false
   }
 }
