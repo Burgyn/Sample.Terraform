@@ -28,6 +28,12 @@ Moduly sa robia ako podadresáre a opäť všetky `.tf` súbory v podadresári s
 má nejaký hlavný súbor, ktorým sa robí deploy. Ak to človek potrebuje rozdeliť na menšie celky, tak modul je len iný konkrétny
 `.bicep` súbor. Každý súbor má svoj vlatný kontext, takže je potrebné z jedného do druhého si cez parametre prenášať dáta.
 
+## Verzia Azure API
+
+V Bicep má maždý zdroj povinne definovanú aj API verziu, ktorou je popísaný. Takto je zabezpečené, že zdroj infraštruktúry
+je stabilný v zmysle, že je nezávislý od zmien v API. Ak v Azure bude vytvorená nová verzia API, zdroje sa stále spravujú
+to čo majú definovanú.
+
 ## Iné drobnosti o ktorých vieme
 
 ### Key Vault
