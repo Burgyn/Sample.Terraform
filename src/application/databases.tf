@@ -7,7 +7,7 @@ resource "azurerm_mssql_database" "users" {
   name      = "mino-${lower(terraform.workspace)}-eshop-${lower(each.value.name)}-db"
   server_id = var.sql_server.id
   collation = "SQL_Latin1_General_CP1_CI_AS"
-  sku_name  = "BC_Gen5_2"
+  sku_name  = "Basic"
 }
 
 resource "azurerm_key_vault_secret" "connection_string" {
