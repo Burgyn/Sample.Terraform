@@ -11,7 +11,7 @@ param location string = resourceGroup().location
 @minLength(36)
 @maxLength(36)
 @description('User\'s object ID.')
-param userId string = '4658beaf-0fb3-4b37-82ca-265de0168f44'
+param userId string = 'b1e0cfbb-0b6d-418f-af0e-4c1507b0683f'
 
 param appServicePlanSku object = {
   name: 'S1'
@@ -40,6 +40,7 @@ param sqlServerAdminName string = 'superadmin'
 param sqlServerAdminPassword string = concat(uniqueString(newGuid()), toUpper(uniqueString(newGuid())))
 
 var tenantId = subscription().tenantId
+var deploymentName = deployment().name
 
 var serviceNames = [
   'authorization'
@@ -99,7 +100,7 @@ resource keyVault 'Microsoft.KeyVault/vaults@2020-04-01-preview' = {
 }
 
 module apiServices './api-services.bicep' = {
-  name: 'apiServices'
+  name: '${deploymentName}-api-services'
   params: {
     prefix: prefix
     deploymentEnvironment: deploymentEnvironment
@@ -110,7 +111,7 @@ module apiServices './api-services.bicep' = {
 }
 
 module databases './databases.bicep' = {
-  name: 'databases'
+  name: '${deploymentName}-databases'
   params: {
     prefix: prefix
     deploymentEnvironment: deploymentEnvironment
@@ -118,6 +119,7 @@ module databases './databases.bicep' = {
     administratorLogin: sqlServerAdminName
     administratorLoginPassword: sqlServerAdminPassword
     elasticPoolSettings: elasticPoolSettings
+    keyVaultName: keyVault.name
     databases: databaseNames
   }
 }

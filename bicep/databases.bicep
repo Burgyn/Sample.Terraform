@@ -12,6 +12,8 @@ param administratorLogin string = 'superadmin'
 @minLength(12)
 param administratorLoginPassword string
 
+param keyVaultName string
+
 param elasticPoolSettings object
 
 param databases array = []
@@ -39,8 +41,10 @@ resource sqlPool 'Microsoft.Sql/servers/elasticPools@2020-08-01-preview' = {
   }
 }
 
-resource database 'Microsoft.Sql/servers/databases@2020-08-01-preview' = [for database in databases: {
-  name: '${sqlServer.name}/${prefix}-${deploymentEnvironment}-eshop-${database}-db'
+var databaseNames = [for database in databases: '${prefix}-${deploymentEnvironment}-eshop-${toLower(database)}-db']
+
+resource database 'Microsoft.Sql/servers/databases@2020-08-01-preview' = [for databaseName in databaseNames: {
+  name: '${sqlServer.name}/${databaseName}'
   location: location
   properties: {
     collation: 'Slovak_CI_AI'
@@ -48,5 +52,12 @@ resource database 'Microsoft.Sql/servers/databases@2020-08-01-preview' = [for da
     zoneRedundant: false
     licenseType: 'BasePrice'
     elasticPoolId: sqlPool.id
+  }
+}]
+
+resource connectionStrings 'Microsoft.KeyVault/vaults/secrets@2020-04-01-preview' = [for (database, i) in databases: {
+  name: '${keyVaultName}/${database}-ConnectionStrings-DefaultConnection-${deploymentEnvironment}'
+  properties: {
+    value: 'Server=tcp:${sqlServer.name}.database.windows.net,1433;Initial Catalog=${databaseNames[i]};Persist Security Info=False;User ID=${administratorLogin};Password=${administratorLoginPassword};MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30'
   }
 }]
