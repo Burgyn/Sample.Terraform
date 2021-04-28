@@ -1,5 +1,6 @@
 module "base-app" {
   source                      = "./application"
+  prefix                      = var.prefix
   application_name            = "base-app"
   default_app_service_plan_id = azurerm_app_service_plan.eshop.id
 

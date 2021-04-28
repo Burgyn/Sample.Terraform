@@ -1,3 +1,8 @@
+variable "prefix" {
+  type = string
+  default = "gabo"
+}
+
 variable "eshop_plan_sku" {
   type = object({
     tier = string
