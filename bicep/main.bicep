@@ -61,6 +61,8 @@ var databaseNames = [
   'orders'
 ]
 
+output services array = apiServices.outputs.services
+
 resource keyVault 'Microsoft.KeyVault/vaults@2020-04-01-preview' = {
   name: '${prefix}-${deploymentEnvironment}-settings-plan'
   location: location

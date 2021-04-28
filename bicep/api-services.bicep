@@ -12,6 +12,11 @@ param services array = []
 
 param location string = resourceGroup().location
 
+output services array = [for i in range(0, length(services)): {
+  'name': services[i]
+  'host': 'https://${api[i].properties.defaultHostName}'
+}]
+
 resource appServicePlan 'Microsoft.Web/serverfarms@2018-02-01' = {
   name: '${prefix}-${deploymentEnvironment}-eshop-plan'
   location: location
